@@ -1,30 +1,21 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
+using PS.Users.Boopstrap;
 using PS.Users.Business.Mappers;
+using PS.Users.Business.Services;
 using PS.Users.Domain.Interfaces.Repositories.Commands;
 using PS.Users.Domain.Interfaces.Repositories.Queries;
-using PS.Users.Repositories.Commands;
-using PS.Users.Repositories.Contexts;
-using PS.Users.Repositories.Queries;
-using PS.Users.Business.Services;
 using PS.Users.Domain.Interfaces.Services;
+using PS.Users.Repositories.Commands;
+using PS.Users.Repositories.Queries;
 
 namespace PS.Users
 {
@@ -51,29 +42,10 @@ namespace PS.Users
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
 
+            services.AddJWTAuthentication(Configuration);
+            services.PersistenciaConfiguration(Configuration);
 
-            //Configuratio Authentication
-            //appSettings.Secret
-            var key = Encoding.ASCII.GetBytes("V4cCI6MTU5NTI2MDY2NCwiaWF0IjoxNT");
-            services.AddAuthentication(x =>
-            {
-                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-            .AddJwtBearer(x =>
-            {
-                x.RequireHttpsMetadata = false;
-                x.SaveToken = true;
-                x.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = false,
-                    ValidateAudience = false
-                };
-            });
 
-            services.AddDbContext<UsersContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped(typeof(IUserCommandRepository), typeof(UserCommandRepository));
             services.AddScoped(typeof(IUserQueryRepository), typeof(UserQueryRepository));
             services.AddScoped(typeof(IUserService), typeof(UserService));
@@ -88,6 +60,7 @@ namespace PS.Users
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.PersistenciaConfigure();
 
             //app.UseHttpsRedirection();
             app.UseRouting();

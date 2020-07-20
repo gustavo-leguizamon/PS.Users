@@ -1,8 +1,5 @@
 ﻿using PS.Users.Domain.Interfaces.Repositories.Commands.Base;
 using PS.Users.Repositories.Contexts;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PS.Users.Repositories.Commands.Base
 {

@@ -2,9 +2,6 @@
 using PS.Users.Domain.Interfaces.Repositories.Commands.Base;
 using PS.Users.Domain.Interfaces.Repositories.Queries.Base;
 using PS.Users.Domain.Interfaces.Services.Base;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PS.Users.Business.Services.Base
 {

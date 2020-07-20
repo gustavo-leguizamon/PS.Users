@@ -2,10 +2,8 @@
 using PS.Users.Domain.Interfaces.Repositories.Queries.Base;
 using PS.Users.Repositories.Contexts;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 
 namespace PS.Users.Repositories.Queries.Base
 {

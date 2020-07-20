@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PS.Users.Boopstrap\PS.Users.Boopstrap.csproj" />
     <ProjectReference Include="..\PS.Users.Business\PS.Users.Business.csproj" />
   </ItemGroup>
 

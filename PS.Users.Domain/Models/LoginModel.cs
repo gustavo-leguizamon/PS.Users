@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace PS.Users.Domain.Models
+﻿namespace PS.Users.Domain.Models
 {
     public class LoginModel
     {

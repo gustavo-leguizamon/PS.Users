@@ -1,8 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PS.Users.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PS.Users.Repositories.Contexts
 {
@@ -21,11 +18,6 @@ namespace PS.Users.Repositories.Contexts
         public DbSet<Role> Role { get; set; }
         public DbSet<UserRole> UserRole { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=PS.Users;Trusted_Connection=True;");
-        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -39,6 +31,7 @@ namespace PS.Users.Repositories.Contexts
                 entity.Ignore(e => e.Password);
                 entity.Property(e => e.PasswordHash).IsRequired();
                 entity.Property(e => e.PasswordSalt).IsRequired();
+
             });
 
             modelBuilder.Entity<Role>(entity =>
@@ -48,7 +41,9 @@ namespace PS.Users.Repositories.Contexts
                 entity.Property(e => e.Name).HasMaxLength(50).IsRequired();
 
                 entity.HasData(
-                    new Role { RoleId = 1, Name = "Admin" }
+                    new Role { RoleId = 1, Name = "Admin" },
+                    new Role { RoleId = 2, Name = "User" },
+                    new Role { RoleId = 3, Name = "invited" }
                 );
             });
 

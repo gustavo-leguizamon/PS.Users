@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PS.Users.Domain.Interfaces.Services;
 using PS.Users.Domain.Models;
+using System;
 
 namespace PS.Users.API.Controllers
 {
@@ -29,7 +25,7 @@ namespace PS.Users.API.Controllers
             try
             {
                 var user = _service.Create(model);
-                return NoContent();
+                return new JsonResult(user) { StatusCode = 201 };
             }
             catch (Exception ex)
             {
@@ -53,6 +49,12 @@ namespace PS.Users.API.Controllers
                 // return error message if there was an exception
                 return BadRequest(new { message = ex.Message });
             }
+        }
+        [HttpGet()]
+        public IActionResult get()
+        {
+            var us = User.Identity;
+            return Ok();
         }
     }
 }

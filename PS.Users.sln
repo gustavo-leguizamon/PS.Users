@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PS.Users.Domain", "PS.Users
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PS.Users.Repositories", "PS.Users.Repositories\PS.Users.Repositories.csproj", "{9F7927AA-410D-43CE-B6B7-A9B79990D5B3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PS.Users.Boopstrap", "PS.Users.Boopstrap\PS.Users.Boopstrap.csproj", "{6899DB33-8650-4EF8-9511-27F8D0D364E6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{9F7927AA-410D-43CE-B6B7-A9B79990D5B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F7927AA-410D-43CE-B6B7-A9B79990D5B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F7927AA-410D-43CE-B6B7-A9B79990D5B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6899DB33-8650-4EF8-9511-27F8D0D364E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6899DB33-8650-4EF8-9511-27F8D0D364E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6899DB33-8650-4EF8-9511-27F8D0D364E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6899DB33-8650-4EF8-9511-27F8D0D364E6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

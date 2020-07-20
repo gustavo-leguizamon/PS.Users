@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using PS.Users.Business.Services.Base;
 using PS.Users.Domain.Entities;
 using PS.Users.Domain.Interfaces.Repositories.Commands;
 using PS.Users.Domain.Interfaces.Repositories.Queries;
-using PS.Users.Business.Services.Base;
 using PS.Users.Domain.Interfaces.Services;
 using PS.Users.Domain.Models;
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -17,8 +17,10 @@ namespace PS.Users.Business.Services
 {
     public class UserService : BaseService<User>, IUserService
     {
-        public UserService(IUserCommandRepository command, IUserQueryRepository query, IMapper mapper) : base(command, query, mapper)
+        private readonly IConfiguration _configuration;
+        public UserService(IUserCommandRepository command, IUserQueryRepository query, IMapper mapper, IConfiguration configuration ) : base(command, query, mapper)
         {
+            _configuration = configuration;
         }
 
         public UserModel Create(RegisterModel model)
@@ -66,7 +68,7 @@ namespace PS.Users.Business.Services
 
         public object GenerateToken(User user)
         {
-            var secret = "V4cCI6MTU5NTI2MDY2NCwiaWF0IjoxNT"; //_appSettings.Secret
+            var secret = _configuration.GetSection("Authentication:SecretKey").Value;
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(secret);
             var tokenDescriptor = new SecurityTokenDescriptor
@@ -74,6 +76,7 @@ namespace PS.Users.Business.Services
                 Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.Name, user.Username),
+                    new Claim(ClaimTypes.Email, user.Email),
                     new Claim(ClaimTypes.Role, user.UserRole.First().Role.Name)
                 }),
                 Expires = DateTime.UtcNow.AddHours(1),
@@ -84,7 +87,7 @@ namespace PS.Users.Business.Services
 
             return new
             {
-                Username = user.Username,
+                user.Username,
                 Token = tokenString
             };
         }

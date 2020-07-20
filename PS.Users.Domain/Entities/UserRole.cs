@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace PS.Users.Domain.Entities
+﻿namespace PS.Users.Domain.Entities
 {
     public class UserRole
     {
